@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import Home from "../pages/Home";
 import AddBook from "../pages/AddBook";
 import AddComic from "../pages/AddComic";
 import AddJournal from "../pages/AddJournal";
@@ -12,7 +11,7 @@ import Comic from "../pages/Comics";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Books />,
   },
 
   {
@@ -23,10 +22,7 @@ const router = createBrowserRouter([
     path: "/journals",
     element: <Journal />,
   },
-  {
-    path: "/books",
-    element: <Books/>
-  },
+
   {
     path: "/updateComic/:id",
     element: <UpdateComic />,

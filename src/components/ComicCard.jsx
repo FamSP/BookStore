@@ -21,7 +21,10 @@ const ComicCard = (props) => {
     return (
         <div className="card bg-base-100 w-96 shadow-sm">
             <figure>
-                <img src={props.coverImage} alt="Comic" />
+                <img src={props.coverImage
+                    || "https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-9a58-61f7-9748-14f4efc93d85/raw?se=2025-10-05T03%3A07%3A24Z&sp=r&sv=2024-08-04&sr=b&scid=f4d5bd94-3666-5c14-9562-1a20ed8752f8&skoid=0b778285-7b0b-4cdc-ac3b-fb93e8c3686f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-10-05T00%3A27%3A04Z&ske=2025-10-06T00%3A27%3A04Z&sks=b&skv=2024-08-04&sig=MsHTXXLdTgaYc0YpfvKHbLPIBolPwMJ0D7ajCDHOrg8%3D"
+                }  
+                alt={props.itemType} />
             </figure>
             <div className="card-body">
                 <h2 className="card-title justify-center">{props.title}</h2>

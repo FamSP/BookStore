@@ -25,7 +25,7 @@ const BookCard = (props) => {
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
-        <img src={props.coverImage} alt="Book" />
+        <img src={props.coverImage} alt={props.itemType} />
       </figure>
            <div className="card-body">
         <h2 className="card-title">{props.title}</h2>

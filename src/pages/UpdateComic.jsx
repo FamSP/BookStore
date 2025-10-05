@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ComicService from "../services/comic.service.js";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const UpdateComic = () => {
   
   const navigate = useNavigate();
+    const { id } = useParams();
 
   const [comic, setComic] = useState({
     title: "",
@@ -18,28 +19,31 @@ const UpdateComic = () => {
     illustrator: "",
     colorType: "",
     targetAge: "",
-    description: ""
+    description: "",
+    coverImage: ""
   });
+  useEffect(() => {
+    const updateComic = async (id) => {
+      try {
+        const resp = await ComicService.getComicById(id);
+        // console.log(resp.data.data);
+        if (resp.status === 200) {
+          setComic(resp.data.data);
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Get All journal",
+          icon: "error",
+          text: error?.response?.data?.message || error.message,
+        });
+      }
+    };
+    updateComic(id);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setComic((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const resetForm = () => {
-    setComic({
-      title: "",
-      author: "",
-      category: "",
-      publishYear: "",
-      isbn: "",
-      series: "",
-      volumeNumber: "",
-      illustrator: "",
-      colorType: "",
-      targetAge: "",
-      description: ""
-    });
   };
 
   const handleSubmit = async (e) => {
@@ -47,21 +51,20 @@ const UpdateComic = () => {
 
 
     try {
-      const newComic = await ComicService.createComic(comic);
+      const newComic = await ComicService.editComicById(id ,comic);
 
       if (newComic.status === 201 || newComic.status === 200) {
         await Swal.fire({
-          title: "Add new comic",
-          text: "Add new comic successfully!",
+          title: "Update comic",
+          text: "Update successfully!",
           icon: "success",
         });
-        resetForm();
         navigate("/comics");
       }
 
     } catch (error) {
       await Swal.fire({
-        title: "Add new comic",
+        title: "Update comic",
         text: error.message || "Request failed",
         icon: "error",
       });
@@ -77,7 +80,7 @@ const UpdateComic = () => {
           className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 max-w-2xl"
         >
           <h1 className="text-2xl font-semibold text-center text-gray-700 mb-6">
-            Add Comic
+            Update Comic
           </h1>
 
           <div className="space-y-4">
@@ -150,6 +153,7 @@ const UpdateComic = () => {
                 name="isbn"
                 value={comic.isbn}
                 onChange={handleChange}
+                readOnly
               />
             </div>
             <div>
@@ -236,13 +240,29 @@ const UpdateComic = () => {
               />
             </div>
 
+            <div>
+              <label className="label">
+                <span className="text-base label-text text-black">Cover Image URL</span>
+              </label>
+              <input
+                type="text"
+                className="w-full input input-bordered"
+                value={comic.coverImage}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+                name="coverImage"
+              />
+              {comic.coverImage && (
+                <div className="flex items-center gap-2 mt-2">
+                  <img className="h-32" src={comic.coverImage} alt="cover preview" />
+                </div>
+              )}
+            </div>
+
 
             <div className="flex justify-center items-center my-6 space-x-4">
               <button type="submit" className="btn bg-green-500 text-white px-6">
-                Add
-              </button>
-              <button type="button" className="btn" onClick={resetForm}>
-                Reset
+                Confirm
               </button>
             </div>
           </div>

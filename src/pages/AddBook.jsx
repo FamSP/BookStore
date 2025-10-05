@@ -59,7 +59,7 @@ const AddBook = () => {
           icon: "success",
         });
         resetForm();
-        navigate("/books");
+        navigate("/");
       } 
       
     } catch (error) {

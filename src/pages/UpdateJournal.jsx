@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 const UpdateJournal = () => {
 
   const navigate = useNavigate();
+    const { id } = useParams();
 
   const [journal, setJournal] = useState({
     title: "",
@@ -18,49 +19,53 @@ const UpdateJournal = () => {
     issue: "",
     publicationFrequency: "MONTHLY",
     publisher: "",
-    description: ""
+    description: "",
+    coverImage: ""
   });
+  useEffect(() => {
+    const updateJournal = async (id) => {
+      try {
+        const resp = await JournalService.getJournalById(id);
+        // console.log(resp.data.data);
+        if (resp.status === 200) {
+          setJournal(resp.data.data);
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Get All restaurants",
+          icon: "error",
+          text: error?.response?.data?.message || error.message,
+        });
+      }
+    };
+    updateJournal(id);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJournal((prev) => ({ ...prev, [name]: value }));
   };
 
-  const resetForm = () => {
-    setJournal({
-      title: "",
-      author: "",
-      category: "",
-      publishYear: "",
-      issn: "",
-      volume: "",
-      issue: "",
-      publicationFrequency: "",
-      publisher: "",
-      description: ""
-    });
-  };
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
 
 
     try {
-      const newJournal = await JournalService.createJournal(journal)
+      const newJournal = await JournalService.editJournalById(id,journal)
 
       if (newJournal.status === 201 || newJournal.status === 200) {
         await Swal.fire({
-          title: "Add new journal",
-          text: "Add new journal successfully!",
+          title: "Update journal",
+          text: "Update journal successfully!",
           icon: "success",
         });
-        resetForm();
         navigate("/journals");
       }
 
     } catch (error) {
       await Swal.fire({
-        title: "Add new journal",
+        title: "Update journal",
         text: error.message || "Request failed",
         icon: "error",
       });
@@ -76,7 +81,7 @@ const UpdateJournal = () => {
           className="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 max-w-2xl"
         >
           <h1 className="text-2xl font-semibold text-center text-gray-700 mb-6">
-            Add Journal
+             Update Journal
           </h1>
 
           <div className="space-y-4">
@@ -149,6 +154,7 @@ const UpdateJournal = () => {
                 name="issn"
                 value={journal.issn}
                 onChange={handleChange}
+                readOnly
               />
             </div>
 
@@ -177,6 +183,7 @@ const UpdateJournal = () => {
                 name="issue"
                 value={journal.issue}
                 onChange={handleChange}
+                readOnly
               />
             </div>
 
@@ -208,13 +215,30 @@ const UpdateJournal = () => {
               />
             </div>
 
+            <div>
+              <label className="label">
+                <span className="text-base label-text text-black">Cover Image URL</span>
+              </label>
+              <input
+                type="text"
+                className="w-full input input-bordered"
+                value={journal.coverImage}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+                name="coverImage"
+              />
+              {journal.coverImage && (
+                <div className="flex items-center gap-2 mt-2">
+                  <img className="h-32" src={journal.coverImage} alt="cover preview" />
+                </div>
+              )}
+            </div>
+
+
 
             <div className="flex justify-center items-center my-6 space-x-4">
               <button type="submit" className="btn bg-green-500 text-white px-6">
-                Add
-              </button>
-              <button type="button" className="btn" onClick={resetForm}>
-                Reset
+                Confirm
               </button>
             </div>
           </div>

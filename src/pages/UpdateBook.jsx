@@ -23,7 +23,7 @@ const UpdateBook = () => {
   });
 
   useEffect(() => {
-    const updateRestaurant = async (id) => {
+    const updateBook = async (id) => {
       try {
         const resp = await BookService.getBookById(id);
         // console.log(resp.data.data);
@@ -32,13 +32,13 @@ const UpdateBook = () => {
         }
       } catch (error) {
         Swal.fire({
-          title: "Get All restaurants",
+          title: "Get All book",
           icon: "error",
           text: error?.response?.data?.message || error.message,
         });
       }
     };
-    updateRestaurant(id);
+    updateBook(id);
   }, [id]);
 
   const handleChange = (e) => {
@@ -62,7 +62,7 @@ const UpdateBook = () => {
           icon: "success",
         });
 
-        navigate("/books");
+        navigate("/");
       }
 
     } catch (error) {

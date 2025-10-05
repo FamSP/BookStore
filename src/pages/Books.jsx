@@ -33,7 +33,7 @@ const Book = () => {
         </h1>
       </div >
 
-      <BookList book={book} />
+      <BookList books={book} />
     </div>
   );
 };

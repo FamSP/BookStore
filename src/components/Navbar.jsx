@@ -3,7 +3,7 @@ const NavBar = () => {
      const menuItems = [
     {
       name: "Books",
-      url: "/books",
+      url: "/",
     },
     {
   name: "Journals",

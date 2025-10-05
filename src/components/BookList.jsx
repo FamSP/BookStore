@@ -1,13 +1,13 @@
 import BookCard from "./BookCard";
 
-const BookList = ({ book }) => {
+const BookList = ({ books }) => {
     return (
         <div className="flex">
             <div className="flex flex-wrap justify-center gap-4">
 
 
                 
-                    {book.map((book) => (
+                    {books.map((book) => (
                     <BookCard
                         key={book.id}
                         title={book.title}
@@ -27,11 +27,7 @@ const BookList = ({ book }) => {
                         pageCount={book.pageCount}
                         language={book.language}
                         genre={book.genre}
-                        series={book.series}
-                        volumeNumber={book.volumeNumber}
-                        illustrator={book.illustrator}
-                        colorType={book.colorType}
-                        targetAge={book.targetAge}
+                        
                     />
                     ))}
                 

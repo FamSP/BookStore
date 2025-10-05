@@ -32,6 +32,7 @@ const ComicList = ({ comics }) => {
                         illustrator={comic.illustrator}
                         colorType={comic.colorType}
                         targetAge={comic.targetAge}
+            
                     />
                     ))}
                 
