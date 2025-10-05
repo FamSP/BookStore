@@ -31,6 +31,11 @@ const Book = () => {
         <h1 className=" flex title justify-center text-3xl text-center m-5 p-5">
           Books
         </h1>
+        <div className="flex justify-center items-center my-6 space-x-4">
+              <a href="/AddBook" className="btn bg-green-500 text-white px-6">
+                Add Book
+              </a>
+            </div>
       </div >
 
       <BookList books={book} />
