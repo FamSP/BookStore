@@ -91,7 +91,7 @@ if (isBookPath) {
           </ul>
         </div>
         <div className="navbar-end flex gap-4">
-<link href={addButtonLink} className="btn btn-outline btn-success">
+<link to={addButtonLink} className="btn btn-outline btn-success">
                 {addButtonText}
               </link>
 </div>
