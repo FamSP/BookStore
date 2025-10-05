@@ -1,5 +1,35 @@
 
-const NavBar = () => {
+import React from "react";
+import { Link, useLocation } from "react-router";
+
+const Navbar = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
+ const isBookPath = ["/books", "/updateBook", "/addBook"].some(p =>
+  path.startsWith(p)
+);
+const isComicPath = ["/comics", "/updateComic", "/addComic"].some(p =>
+  path.startsWith(p)
+);
+const isJournalPath = ["/journals", "/updateJournal", "/addJournal"].some(p =>
+  path.startsWith(p)
+);
+
+let addButtonText = "Add Item";
+let addButtonLink = "/addBook";
+
+if (isBookPath) {
+  addButtonText = "Add Book";
+  addButtonLink = "/addBook";
+} else if (isComicPath) {
+  addButtonText = "Add Comic";
+  addButtonLink = "/addComic";
+} else if (isJournalPath) {
+  addButtonText = "Add Journal";
+  addButtonLink = "/addJournal";
+}
+
      const menuItems = [
     {
       name: "Books",
@@ -60,7 +90,11 @@ const NavBar = () => {
               ))}
           </ul>
         </div>
-        <div className="navbar-end flex gap-4"></div>
+        <div className="navbar-end flex gap-4">
+<link href={addButtonLink} className="btn btn-outline btn-success">
+                {addButtonText}
+              </link>
+</div>
       </div>
     </div>
   );
