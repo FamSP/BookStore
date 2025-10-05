@@ -31,6 +31,11 @@ const Journals = () => {
         <h1 className=" flex title justify-center text-3xl text-center m-5 p-5">
           Journals
         </h1>
+        <div className="flex justify-center items-center my-6 space-x-4">
+              <a href="/AddJournal" className="btn bg-green-500 text-white px-6">
+                Add Journal
+              </a>
+            </div>
       </div >
 
       <JournalList journal={journal} />
