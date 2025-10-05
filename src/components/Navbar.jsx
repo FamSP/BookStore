@@ -2,7 +2,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router";
 
-const Navbar = () => {
+const NavBar = () => {
   const location = useLocation();
   const path = location.pathname;
 
